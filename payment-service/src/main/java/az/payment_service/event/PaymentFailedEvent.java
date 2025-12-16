@@ -13,18 +13,18 @@ public class PaymentFailedEvent {
     private String correlationId;
     private LocalDateTime timestamp;
 
-    private Long id;
     private Long bookingId;
+    private String reason;
 
     public PaymentFailedEvent() {
         eventId = UUID.randomUUID().toString();
         timestamp = LocalDateTime.now();
     }
 
-    public PaymentFailedEvent(Long id, Long bookingId, String correlationId) {
+    public PaymentFailedEvent(Long bookingId, String reason, String correlationId) {
         this();
-        this.id = id;
         this.bookingId = bookingId;
+        this.reason = reason;
         this.correlationId = correlationId;
     }
 }

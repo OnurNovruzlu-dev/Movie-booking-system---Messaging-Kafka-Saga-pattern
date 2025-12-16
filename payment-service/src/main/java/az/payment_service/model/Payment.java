@@ -22,9 +22,6 @@ public class Payment {
     private BigDecimal amount;
 
     @Column(nullable = false)
-    private String currency;
-
-    @Column(nullable = false)
     private Long bookingId;
 
     @Enumerated(EnumType.STRING)
