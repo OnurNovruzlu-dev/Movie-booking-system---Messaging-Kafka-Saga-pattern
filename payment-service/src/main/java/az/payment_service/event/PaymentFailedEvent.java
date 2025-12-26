@@ -10,7 +10,6 @@ import java.util.UUID;
 @Setter
 public class PaymentFailedEvent {
     private String eventId;
-    private String correlationId;
     private LocalDateTime timestamp;
 
     private Long bookingId;
@@ -21,10 +20,9 @@ public class PaymentFailedEvent {
         timestamp = LocalDateTime.now();
     }
 
-    public PaymentFailedEvent(Long bookingId, String reason, String correlationId) {
+    public PaymentFailedEvent(Long bookingId, String reason) {
         this();
         this.bookingId = bookingId;
         this.reason = reason;
-        this.correlationId = correlationId;
     }
 }

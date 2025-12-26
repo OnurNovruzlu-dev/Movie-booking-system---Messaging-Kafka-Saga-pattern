@@ -23,7 +23,7 @@ public class BookingEventConsumer {
     @KafkaListener(
             topics = "booking-created",
             groupId = "payment-service-group",
-            containerFactory = "kafkaListenerContainerFactory")
+            containerFactory = "kafkaListenerFactory")
     public void consumeBookingCreatedEvent(@Header(KafkaHeaders.RECEIVED_KEY) String key,
                                            @Header(KafkaHeaders.RECEIVED_PARTITION) int partition,
                                            @Payload String value) {
@@ -32,20 +32,11 @@ public class BookingEventConsumer {
         try {
             BookingCreatedEvent event = objectMapper.readValue(value, BookingCreatedEvent.class);
 
-            log.info("Processing booking: {} for user: {}, amount: ${}, seats: {}",
-                    event.getBookingId(),
-                    event.getUserId(),
-                    event.getAmount(),
-                    event.getSeatIds());
-
             paymentEventHandler.handleBookingCreated(event);
 
-            log.info("Successfully processed BookingCreatedEvent for booking: {}",
-                    event.getBookingId());
         } catch (JsonProcessingException e) {
             log.error("Error processing BookingCreatedEvent - Key: {}, will retry", key, e);
         }
-
     }
 
 }

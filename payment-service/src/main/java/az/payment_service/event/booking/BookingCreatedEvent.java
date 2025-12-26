@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class BookingCreatedEvent {
     private String eventId;
-    private String correlationId;
     private LocalDateTime timestamp;
 
     private Long bookingId;
